@@ -1,28 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="container">
+    <h1 class="text-center">Vue-Translator</h1>
+    <br>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <translate-form
+          @translateEvent="translatedText = $event"
+          @historyEvent="history.push($event)"
+        ></translate-form>
+        <div v-show="translatedText.length > 0" class="well">
+          <h3 class="text-danger text-center">{{translatedText}}</h3>
+        </div>
+        <search-history v-show="history.length > 0" :history="history"></search-history>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TranslateForm from "./components/TranslateForm.vue";
+import SearchHistory from "./components/SearchHistory.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    TranslateForm,
+    SearchHistory
+  },
+  data() {
+    return {
+      translatedText: "",
+      history: []
+    };
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  background-color: #dedede;
 }
 </style>
